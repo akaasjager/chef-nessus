@@ -22,11 +22,13 @@ case File.extname(installer_filename)
 when '.deb'
   dpkg_package "Nessus" do
     source installer_filename
+    action :install
     notifies :restart, 'service[nessusd]', :delayed
   end
 when '.rpm'
   rpm_package "Nessus" do
     source installer_filename
+    action :upgrade
     notifies :restart, 'service[nessusd]', :delayed
   end
 else
